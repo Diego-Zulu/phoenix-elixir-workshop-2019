@@ -24,4 +24,6 @@ Phoenix & Elixir Workshop I took part on December 7th 2019 at WyeWorks
 
 If you need to connect to the container:
 
-```docker exec -it phoenix-elixir-workshop-2019_dev_1 bash```
+```docker exec -it phoenix-elixir-workshop-2019_backend-dev_1 bash```
+or
+```docker exec -it phoenix-elixir-workshop-2019_fronted-dev_1 bash```

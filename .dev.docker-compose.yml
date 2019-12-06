@@ -1,0 +1,19 @@
+version: '3.2'
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: .dev.dockerfile
+    volumes:
+      - type: bind
+        source: ./db-data
+        target: /var/lib/postgresql/data
+      - type: bind
+        source: ./frontend
+        target: /code/frontend
+      - type: bind
+        source: ./backend
+        target: /code/backend
+    ports:
+      - 3000:3000
+      - 3001:3001

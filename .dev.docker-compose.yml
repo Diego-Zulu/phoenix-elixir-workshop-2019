@@ -16,4 +16,4 @@ services:
         target: /code/backend
     ports:
       - 3000:3000
-      - 3001:3001
+      - 4000:4000

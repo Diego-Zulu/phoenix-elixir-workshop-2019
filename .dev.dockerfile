@@ -28,6 +28,6 @@ USER postgres
 WORKDIR /code
 
 EXPOSE 3000
-EXPOSE 3001
+EXPOSE 4000
 
 CMD cd frontend && yarn install && yarn start

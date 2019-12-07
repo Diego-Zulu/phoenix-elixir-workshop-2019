@@ -2,7 +2,7 @@ defmodule TrelloApi.BoardList do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias TrelloApi.{Board, Card, Repo}
+  alias TrelloApi.{Board, BoardList, Card, Repo}
 
   schema "board_lists" do
     field :title, :string

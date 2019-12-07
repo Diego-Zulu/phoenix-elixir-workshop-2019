@@ -17,6 +17,8 @@ services:
         source: ./trello_api
         target: /code
     network_mode: service:frontend-dev
+    depends_on:
+      - db-dev
   frontend-dev:
     build:
       context: ./frontend

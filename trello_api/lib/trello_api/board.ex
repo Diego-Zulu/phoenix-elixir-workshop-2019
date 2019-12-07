@@ -33,12 +33,27 @@ defmodule TrelloApi.Board do
 
   def get_board!(id) do
     Repo.get!(Board, id)
+    |> Repo.preload(:board_lists)
   end
 
-  def after_insertion({:ok, board}), do: create_default_lists(board)
-  def after_insertion({:error, _changeset} = result), do: result
+  defp after_insertion({:ok, board}), do: create_default_lists(board)
+  defp after_insertion({:error, _changeset} = result), do: result
 
-  def create_default_lists(board) do
-    list = Enum.map()
+  defp create_default_lists(board) do
+    lists = Enum.map(@default_lists, fn title -> 
+      %{
+        title: title,
+        board_id: board.id,
+        inserted_at: time_now(),
+        updated_at: time_now()
+      }
+    end)
+    Repo.insert_all(BoardList, lists)
+
+    {:ok, board |> Repo.preload(:board_lists)}
+  end
+
+  defp time_now() do
+    NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
   end
 end

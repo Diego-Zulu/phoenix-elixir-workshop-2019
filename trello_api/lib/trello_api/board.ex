@@ -4,6 +4,8 @@ defmodule TrelloApi.Board do
 
   alias TrelloApi.{Board, BoardList, Repo}
 
+  @default_lists ["To do", "Doing", "Done"]
+
   schema "boards" do
     field :name, :string
     has_many :board_lists, BoardList
@@ -22,6 +24,7 @@ defmodule TrelloApi.Board do
     %Board{}
     |> changeset(%{name: name})
     |> Repo.insert()
+    |> after_insertion()
   end
 
   def list_boards() do
@@ -30,5 +33,12 @@ defmodule TrelloApi.Board do
 
   def get_board!(id) do
     Repo.get!(Board, id)
+  end
+
+  def after_insertion({:ok, board}), do: create_default_lists(board)
+  def after_insertion({:error, _changeset} = result), do: result
+
+  def create_default_lists(board) do
+    list = Enum.map()
   end
 end

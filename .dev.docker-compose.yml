@@ -10,11 +10,11 @@ services:
     network_mode: service:frontend-dev
   backend-dev:
     build:
-      context: ./backend
+      context: ./trello_api
       dockerfile: .dev.dockerfile
     volumes:
       - type: bind
-        source: ./backend
+        source: ./trello_api
         target: /code
     network_mode: service:frontend-dev
   frontend-dev:

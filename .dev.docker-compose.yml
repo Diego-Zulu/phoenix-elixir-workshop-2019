@@ -1,19 +1,22 @@
 version: '3.2'
 services:
+  db-dev:
+    restart: always
+    image: postgres:12.1
+    volumes:
+      - type: bind
+        source: ./db-data
+        target: /var/lib/postgresql/data
+    network_mode: service:frontend-dev
   backend-dev:
     build:
       context: ./backend
       dockerfile: .dev.dockerfile
     volumes:
       - type: bind
-        source: ./db-data
-        target: /var/lib/postgresql/data
-      - type: bind
         source: ./backend
         target: /code
-    ports:
-      - 4000:4000
-      - 4001:5432
+    network_mode: service:frontend-dev
   frontend-dev:
     build:
       context: ./frontend
@@ -24,3 +27,5 @@ services:
         target: /code
     ports:
       - 3000:3000
+      - 4000:4000
+      - 5432:5432
